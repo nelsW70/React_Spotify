@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+import Profile from './Profile';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: '',
+      artist: null
     }
   }
 
@@ -15,7 +17,7 @@ class App extends Component {
   const BASE_URL = 'https://api.spotify.com/v1/search?';
   const FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
   console.log('FETCH_URL', FETCH_URL);
-  const accessToken = 'BQDETcd4ncefOrPyvWHO1YrnSFPu2uNQDGmiFA6VB-aC36IaiTQKjvxKh6-BHHQcahW7qrikOZ9T2Laf-PZCVNCT3jJ9XtX2WoMsjCKjx5VaVCbT1fla3dQ4S31taOi_RFSkvGmeAY2ueao15de0Soa3PBSl&refresh_token=AQBg78Gaz3HN_866_Xh4i-IcUPEBCg98rDBFCKILYeBs-PMmyt2u_3Tq-66gpaIW9t0x8H9BAafLkJB3ispYvMT3hC1WsLQ4GQ7PIV_c2XIoB7LBfL0OJmPmA-ORTeLjk5M'
+  const accessToken = 'BQBggwN9VPkYHdUJDJ1jzliPw6o9fciHiNFzczvS3fsmUUYEQxMGBfcsntgYfcbTrewG_dhyxab74fQykfNNlhLSfOWXfpsL3hYAm9rECsoepqsSr6hxVj6_P09Xvwl-mzzcglF_mw_5FezusqXnS8qAiXPE&refresh_token=AQBz6UT3jiB6T1ZW49IW9eDazdXleqpHCLBccQQRH6VWkpw_2_C-DgdW_VovAHqXmp1dDyVKyta78epwWKG3-ldxrw0TyC_wj1tfQParDzvB8h1CLI_KeTrWbPb-LsDqm74'
   // const myHeaders = new Headers();
   const myOptions = {
     method: 'GET',
@@ -28,7 +30,11 @@ class App extends Component {
 
   fetch(FETCH_URL, myOptions )
     .then(response => response.json())
-    .then(json => console.log(json))
+    .then(json => {
+      const artist = json.artists.items[0];
+      console.log('artist', artist);
+      this.setState({artist});
+    })
 }
 
   render() {
@@ -53,10 +59,9 @@ class App extends Component {
               </InputGroup.Addon>
             </InputGroup>
           </FormGroup>
-        <div className="Profile">
-          <div>Artist Picture</div>
-          <div>Artist Name</div>
-        </div>
+        <Profile
+          artist={this.state.artist}
+        />
         <div className="Gallery">
           Gallery
         </div>
