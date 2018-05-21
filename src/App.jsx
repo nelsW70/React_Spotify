@@ -17,7 +17,7 @@ class App extends Component {
   const BASE_URL = 'https://api.spotify.com/v1/search?';
   const FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
   console.log('FETCH_URL', FETCH_URL);
-  const accessToken = 'BQBggwN9VPkYHdUJDJ1jzliPw6o9fciHiNFzczvS3fsmUUYEQxMGBfcsntgYfcbTrewG_dhyxab74fQykfNNlhLSfOWXfpsL3hYAm9rECsoepqsSr6hxVj6_P09Xvwl-mzzcglF_mw_5FezusqXnS8qAiXPE&refresh_token=AQBz6UT3jiB6T1ZW49IW9eDazdXleqpHCLBccQQRH6VWkpw_2_C-DgdW_VovAHqXmp1dDyVKyta78epwWKG3-ldxrw0TyC_wj1tfQParDzvB8h1CLI_KeTrWbPb-LsDqm74'
+  const accessToken = 'BQAK9nCkU4hJscMfKllH3OZuGR0BxcE-vCWZYfMPlxao8OQWC-EDuueUhj_Olh8kuvDkpvx05iNEMIWWsfDWNnMo3vX8JERO4E2wkIwb5ZG5nQ9iS2CgUsdKjixnNla3YTeSrj4QSJbXlDBFUDFms_Ov33Sx&refresh_token=AQDkypHrZcBJPvQZZ3eH_aGRD0a3i34xYs9yTPskTpfTNEo4XCxB29SQliki9XWWuKsIoFV_0SmgF83M5I6QPdcHqK9QL22I_YhefWffvVnGGtk5pNq8geOIo5_0uW4c40k'
   // const myHeaders = new Headers();
   const myOptions = {
     method: 'GET',
@@ -47,7 +47,7 @@ class App extends Component {
                 type="text"
                 placeholder="Search for an Artist"
                 value={this.state.query}
-                onChange={event => {this.setState({ query: event.target.value})}}
+                onChange={event => {this.setState({query: event.target.value})}}
                 onKeyPress={event => {
                   if (event.key === 'Enter') {
                     this.search()
@@ -59,18 +59,23 @@ class App extends Component {
               </InputGroup.Addon>
             </InputGroup>
           </FormGroup>
-        <Profile
-          artist={this.state.artist}
-        />
-        <div className="Gallery">
-          Gallery
-        </div>
+          {
+            this.state.artist !== null
+            ?
+              <div>
+                <Profile
+                  artist={this.state.artist}
+                  />
+                  <div className="Gallery">
+                    Gallery
+                  </div>
+              </div>
+
+            : <div></div>
+          }
       </div>
     );
   }
 }
 
 export default App;
-
-// access token
-// BQDaJjMumISAz0KV4Tx2mpEIEdCJIGEsrY8urtsO3FJIKYPKp7Jme3xwfRdLpvLlI4aS1dK_jCyLGWBYEYIRRyJcrhsI5-nPoV4UXu6MF7IrauoweI6sNbABfX6xw_LHnkaVicuW-t0ub5LliWaqWYiSkvED&refresh_token=AQAfhJioBjdXfCdWzcCFZty4_rOQe3ANOHJMYzJ9e0w3mhcNRyXzKeD0qAVNsGmubDmxPVb-DHf1vwcIURxO-X5F-YxnpipdIJvv6nJzwNcobAkEYjJYXxpXoedEkWeh0ho
