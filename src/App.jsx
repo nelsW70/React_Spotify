@@ -15,9 +15,9 @@ class App extends Component {
   search() {
   console.log('this.state', this.state);
   const BASE_URL = 'https://api.spotify.com/v1/search?';
-  const FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
-  console.log('FETCH_URL', FETCH_URL);
-  const accessToken = 'BQAK9nCkU4hJscMfKllH3OZuGR0BxcE-vCWZYfMPlxao8OQWC-EDuueUhj_Olh8kuvDkpvx05iNEMIWWsfDWNnMo3vX8JERO4E2wkIwb5ZG5nQ9iS2CgUsdKjixnNla3YTeSrj4QSJbXlDBFUDFms_Ov33Sx&refresh_token=AQDkypHrZcBJPvQZZ3eH_aGRD0a3i34xYs9yTPskTpfTNEo4XCxB29SQliki9XWWuKsIoFV_0SmgF83M5I6QPdcHqK9QL22I_YhefWffvVnGGtk5pNq8geOIo5_0uW4c40k'
+  let FETCH_URL = BASE_URL + 'q=' + this.state.query + '&type=artist&limit=1';
+  const ALBUM_URL = 'https://api.spotify.com/v1/artists/';
+  const accessToken = 'BQDFWl2oLsJmpLmc5o0O_xOL_7DkHAoctsK_QYISEQKPur8nE6o-7zNIcxmHtD23dKqNgznirG81avGjOLfGqikKzxgq53hnKUrvho0GRqiMK27QPVE8CT2-t9GYFzHp3yDATVClGRl_aARobxTrHFeO2uhf&refresh_token=AQA1cyq1e1_V9xsN4fphulgoRfAp5GglKRdvSH5lh4He14y10ltz2gdgO2nAuifixAs99Q-y5fK0X65NuSAGP0KzsfgPCBLHcxze4maOcnNRRUZFMnVjoMITBSPHTxJx-0I'
   // const myHeaders = new Headers();
   const myOptions = {
     method: 'GET',
@@ -34,7 +34,14 @@ class App extends Component {
       const artist = json.artists.items[0];
       console.log('artist', artist);
       this.setState({artist});
-    })
+
+      FETCH_URL = `${ALBUM_URL}${artist.id}/top-tracks?country=US&`
+      fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        console.log('artist\'s top tracks:', json);
+      })
+    });
 }
 
   render() {

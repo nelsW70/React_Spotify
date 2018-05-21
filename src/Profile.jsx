@@ -23,7 +23,7 @@ class Profile extends Component {
               artist.genres.map((genre, k) => {
                 genre = genre !== artist.genres[artist.genres.length-1]
                               ? ` ${genre},`
-                              : ` & ${genre};`
+                              : ` & ${genre}`;
                 return (
                   <span key={k}>{genre}</span>
                 )
